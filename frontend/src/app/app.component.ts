@@ -20,7 +20,7 @@ import { AuthService } from './services/auth.service';
   template: `
     <app-background></app-background>
     <app-header></app-header>
-    <app-user-menu *ngIf="currentUser"></app-user-menu>
+    <app-user-menu *ngIf="showUserMenu"></app-user-menu>
     <router-outlet></router-outlet>
     <div *ngIf="isLoading">Loading...</div>
   `,
@@ -29,12 +29,15 @@ import { AuthService } from './services/auth.service';
 export class AppComponent implements OnInit {
   currentUser: any;
   isLoading = true;
+  showUserMenu = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
     this.authService.currentUser.subscribe((user) => {
       this.currentUser = user;
+      this.updateUserMenuVisibility();
+
       if (!user && this.router.url !== '/login') {
         this.router.navigate(['/login']);
       }
@@ -43,6 +46,7 @@ export class AppComponent implements OnInit {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe(() => {
+      this.updateUserMenuVisibility();
       this.checkLoginStatus();
     });
 
@@ -64,5 +68,9 @@ export class AppComponent implements OnInit {
         this.router.navigate(['/login']);
       }
     );
+  }
+
+  updateUserMenuVisibility() {
+    this.showUserMenu = this.currentUser && this.router.url !== '/login';
   }
 }

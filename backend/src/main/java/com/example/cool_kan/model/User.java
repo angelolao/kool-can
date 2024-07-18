@@ -2,6 +2,9 @@ package com.example.cool_kan.model;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -15,6 +18,9 @@ public class User {
     private String name;
 
     private String pictureUrl;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Board> boards = new ArrayList<>();
 
     // Constructors
     public User() {
@@ -57,5 +63,24 @@ public class User {
 
     public void setPictureUrl(String pictureUrl) {
         this.pictureUrl = pictureUrl;
+    }
+
+    public List<Board> getBoards() {
+        return boards;
+    }
+
+    public void setBoards(List<Board> boards) {
+        this.boards = boards;
+    }
+
+    // Convenience methods for managing boards
+    public void addBoard(Board board) {
+        boards.add(board);
+        board.setUser(this);
+    }
+
+    public void removeBoard(Board board) {
+        boards.remove(board);
+        board.setUser(null);
     }
 }
