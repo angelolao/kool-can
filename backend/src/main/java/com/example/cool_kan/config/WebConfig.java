@@ -1,4 +1,4 @@
-package com.example.kanbanboard.config;
+package com.example.cool_kan.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

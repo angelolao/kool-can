@@ -1,0 +1,74 @@
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+  }
+  
+  .login-card {
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 1);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  mat-card-title {
+    font-size: 28px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  mat-card-content {
+    font-size: 16px;
+    font-weight: 400;
+    margin-bottom: 20px;
+    color: #666;
+  }
+  
+  .spinner-container {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+  }
+  
+  mat-card-actions {
+    justify-content: center;
+    padding: 0 20px 20px;
+  }
+  
+  .google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: #fff;
+    color: #757575;
+    border: 1px solid #ddd;
+    padding: 0 20px;
+    font-size: 16px;
+    font-weight: 500;
+    height: 40px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+  
+    &:hover {
+      background-color: #f1f1f1;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  }
+  
+  .google-logo {
+    width: 18px;
+    height: 18px;
+    margin-right: 10px;
+  }

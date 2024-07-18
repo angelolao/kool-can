@@ -1,0 +1,19 @@
+<div class="login-container">
+    <mat-card class="login-card">
+        <mat-card-header>
+            <mat-card-title>Login</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div *ngIf="isLoading" class="spinner-container">
+                <mat-spinner diameter="50"></mat-spinner>
+            </div>
+            <p *ngIf="!isLoading && !currentUser">Please log in to continue</p>
+        </mat-card-content>
+        <mat-card-actions *ngIf="!isLoading && !currentUser">
+            <button mat-raised-button class="google-btn" (click)="login()">
+                <img src="assets/images/logos/google-logo.svg" alt="Google logo" class="google-logo">
+                Sign in with Google
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>

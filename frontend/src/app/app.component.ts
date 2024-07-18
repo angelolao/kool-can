@@ -1,30 +1,68 @@
-import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { ApiService } from './services/api.service';
+import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { BackgroundComponent } from './background.component';
+import { HeaderComponent } from './components/header/header.component';
+import { UserMenuComponent } from './components/userMenu/user-menu.component';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, HttpClientModule],
-  template: '<h1>Cool Kan</h1><p>{{ message }}</p>',
-  styleUrls: ['./app.component.scss']
+  imports: [
+    CommonModule,
+    RouterModule,
+    BackgroundComponent,
+    HeaderComponent,
+    UserMenuComponent,
+  ],
+  template: `
+    <app-background></app-background>
+    <app-header></app-header>
+    <app-user-menu *ngIf="currentUser"></app-user-menu>
+    <router-outlet></router-outlet>
+    <div *ngIf="isLoading">Loading...</div>
+  `,
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
-  message = '';
+  currentUser: any;
+  isLoading = true;
 
-  constructor(private apiService: ApiService) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {
-      this.apiService.testBackendConnection().subscribe(
-        response => {
-          this.message = response;
-          console.log('Backend connection successful:', response);
-        },
-        error => {
-          this.message = 'Error connecting to backend';
-          console.error('Backend connection failed:', error);
+    this.authService.currentUser.subscribe((user) => {
+      this.currentUser = user;
+      if (!user && this.router.url !== '/login') {
+        this.router.navigate(['/login']);
+      }
+    });
+
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.checkLoginStatus();
+    });
+
+    this.checkLoginStatus();
+  }
+
+  checkLoginStatus() {
+    this.isLoading = true;
+    this.authService.checkLoginStatus().subscribe(
+      (user) => {
+        this.isLoading = false;
+        if (!user && this.router.url !== '/login') {
+          this.router.navigate(['/login']);
         }
-      );
-    }
+      },
+      (error) => {
+        console.error('Error checking login status', error);
+        this.isLoading = false;
+        this.router.navigate(['/login']);
+      }
+    );
+  }
 }

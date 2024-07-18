@@ -1,0 +1,12 @@
+:host {
+    display: block;
+    position: relative;
+    min-height: 100vh;
+    color: white;
+    z-index: 1;
+  }
+  
+  h1, p, button {
+    position: relative;
+    z-index: 2;
+  }

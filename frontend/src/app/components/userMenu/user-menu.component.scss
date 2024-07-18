@@ -1,0 +1,23 @@
+.user-menu-button {
+    position: fixed;
+    top: 16px;
+    right: 25px;
+    z-index: 1000;
+}
+
+.wide-menu {
+    .mat-menu-content {
+        width: 350px; // Adjust this value to your desired width
+    }
+
+    .mat-menu-item {
+        width: 100%; // Ensure the menu item takes full width of its container
+    }
+}
+
+.menu-icon {
+    color: #fff;
+    font-size: 32px; // Increase icon size
+    width: 36px; // Ensure icon width matches font-size
+    height: 36px;
+}

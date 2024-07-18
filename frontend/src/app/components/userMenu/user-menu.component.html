@@ -1,0 +1,9 @@
+<button *ngIf="isLoggedIn" mat-icon-button [matMenuTriggerFor]="menu" class="user-menu-button">
+    <mat-icon class="menu-icon">account_circle</mat-icon>
+</button>
+<mat-menu #menu="matMenu" class="wide-menu">
+    <button mat-menu-item (click)="logout()">
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+    </button>
+</mat-menu>
