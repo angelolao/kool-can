@@ -1,6 +1,5 @@
-echo "# Kanban Board
 
-This project consists of a Spring Boot backend and an Angular frontend.
+![Screenshot 2024-07-18 at 11 02 35 PM](https://github.com/user-attachments/assets/46064aa2-21b6-46a2-ac10-b5e5d06ae211)
 
 ## Backend
 Located in the \`backend\` directory. Run with \`./mvnw spring-boot:run\`
